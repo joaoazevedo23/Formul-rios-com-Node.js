@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario dos Inventores</title>
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <form id="form">
+        <div class="linha">
+            <label>Nome:</label>
+            <input name="nome" type="text" required />
+        </div><br>
+        <div class="linha">
+            <label>Idade:</label>
+            <input name="idade" type="number" required />
+        </div><br>
+        <div class="linha">
+            <label>Invento:</label>
+            <input name="invento" type="text" required />
+        </div><br>
+        <div class="linha">
+            <label>Ano:</label>
+            <input name="ano" type="number" required />
+        </div><br>
+        <button class="btn" type="submit">Enviar dados para um array</button>
+        <button class="btn" type="button" onclick="exibirLista()">Lista oculta</button>
+    </form>
+
+    <div class="exibicao">
+        <ul class="listaInventores"></ul>
+    </div>
+
+    <script>
+        const form = document.querySelector("#form");
+        form.addEventListener("submit", function(event){
+            event.preventDefault();
+
+            const nome = form.nome.value;
+            const idade = Number(form.idade.value);
+            const invento = form.invento.value;
+            const ano = Number(form.ano.value);
+
+            const novoInventor = {
+                nome,
+                idade,
+                invento,
+                ano
+            };
+
+            fetch("http://localhost:2022/inventor", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(novoInventor)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.mensagem);
+            form.reset();
+        })
+        .catch(err => console.error("Erro:", err));
+    });
+
+    function exibirLista(){
+        fetch("http://localhost:2022/inventores")
+        .then(res => res.json())
+        .then(dados => {
+            const lista = document.querySelector(".listaInventores");
+            lista.innerHTML = "";
+            dados.forEach(inventor => {
+                const item = document.createElement("li");
+                item.textContent = `Nome: ${inventor.nome}, Idade: ${inventor.idade}, Invento: ${inventor.invento}, Ano: ${inventor.ano}`;
+                lista.appendChild(item);
+            });
+        })
+        .catch(err => console.error("Erro ao buscar lista:", err));
+    };
+    
+</script>
+</body>
+
+</html>

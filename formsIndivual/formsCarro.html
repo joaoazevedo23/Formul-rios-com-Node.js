@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário sobre o modelo do carro</title>
+</head>
+<body>
+    <form id="form">
+        <div class="linha">
+            <label for="nome">Modelo:</label>
+            <input type="text" name="modelo" required/>
+        </div><br>
+        <div class="linha">
+            <label for="nome">Marca:</label>
+            <input type="text" name="marca" required/>
+        </div><br>
+        <div class="linha">
+            <label for="nome">Ano:</label>
+            <input type="number" name="ano" required/>
+        </div><br>
+        <div class="linha">
+            <label for="nome">Placa:</label>
+            <input type="text" name="placa" required/>
+        </div><br>
+        <button type="submit">Cadastrar</button>
+        <button type="button" onclick="mostrarRespostas()">Respostas Cadastradas</button>
+    </form>
+
+    <div class="respostas">
+        <ul class="lista"></ul>
+    </div>
+
+    <script>
+
+        arrayCarros = [];
+
+        const form = document.querySelector("#form");
+        form.addEventListener("submit", function(apertar){
+            apertar.preventDefault();
+
+            const modelo = form.modelo.value;
+            const marca = form.marca.value;
+            const ano = Number(form.ano.value);
+            const placa = form.placa.value;
+
+            const novoCadastro = {
+                modelo,
+                marca,
+                ano,
+                placa
+            };
+
+            arrayCarros.push(novoCadastro)
+            alert("Deu certo!!")
+            form.reset();
+        });
+
+        function mostrarRespostas(){
+            const listaR = document.querySelector(".lista");
+            listaR.innerHTML = "";
+
+            arrayCarros.forEach((carro) => {
+            const item  = document.createElement("li")
+            item.textContent = `Modelo: ${carro.modelo}, Marca: ${carro.marca}, Ano: ${carro.ano} e Placa: ${carro.placa}`;
+            listaR.appendChild(item);
+        });
+        };
+
+
+
+    </script>
+    
+</body>
+</html>

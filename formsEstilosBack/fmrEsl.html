@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Músicas</title>
+  <script src="fmrEsl.js" defer></script>
+</head>
+
+<body>
+  <form id="form">
+    <div class="linha">
+      <label for="titulo">Título da Música:</label>
+      <input type="text" name="titulo" id="titulo" required />
+    </div><br />
+    <div class="linha">
+      <label for="artista">Artista:</label>
+      <input type="text" name="artista" id="artista" required />
+    </div><br />
+    <div class="linha">
+      <label for="ano">Ano de Lançamento:</label>
+      <input type="number" name="ano" id="ano" required />
+    </div><br />
+    <div class="linha">
+      <label for="genero">Gênero:</label>
+      <input type="text" name="genero" id="genero" required />
+    </div><br />
+    <button type="submit">Cadastrar</button>
+    <button type="button" onclick="mostrarRespostas()">Músicas Cadastradas</button>
+  </form>
+
+  <div class="respostas">
+    <ul id="lista"></ul>
+  </div>
+
+  <script>
+
+    const form = document.querySelector("#form");
+    form.addEventListener("submit", function (apertar) {
+      apertar.preventDefault();
+
+      const titulo = form.titulo.value;
+      const artista = form.artista.value;
+      const ano = Number(form.ano.value);
+      const genero = form.genero.value;
+
+      const novaMusica = {
+        titulo,
+        artista,
+        ano,
+        genero,
+      };
+
+      fetch("http://localhost:3033/musica", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(novaMusica)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data.mensagem)
+          form.reset()
+        })
+        .catch(err => console.error("Erro: ", err))
+
+    });
+
+    function mostrarRespostas() {
+
+      fetch("http://localhost:3033/musicas")
+        .then(res => res.json())
+        .then(dados => {
+          const listaR = document.getElementById("lista");
+          listaR.innerHTML = "";
+
+          dados.forEach((musica) => {
+            const item = document.createElement("li");
+            item.textContent = `Título: ${musica.titulo}, Artista: ${musica.artista}, Ano: ${musica.ano}, Gênero: ${musica.genero}`;
+            listaR.appendChild(item);
+          })
+          
+        })
+        .catch(err => console.error("Erro ao recuperar músicas: ", err))
+
+    }
+  </script>
+</body>
+
+</html>
