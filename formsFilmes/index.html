@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Filmes Preferidos!!</title>
+    <script src="index.js" defer></script>
+    <script src="servidor.js"  defer></script>
+</head>
+
+<body>
+    <form id="form">
+        <div class="linha">
+            <label for="filme">Filme:</label>
+            <input name="filme" type="text" required/>
+        </div><br>
+        <div class="linha">
+            <label for="diretor">Diretor:</label>
+            <input name="diretor" type="text" required/>
+        </div><br>
+        <div class="linha">
+            <label for="ano">Ano de Lançamento:</label>
+            <input name="ano" type="number" required/>
+        </div><br>
+        <div class="linha">
+            <label for="gen">Gênero:</label>
+            <input name="gen" type="text" required/>
+        </div><br>
+        <button type="submit" class="btn">Cadastrar</button>
+        <button type="button" class="btn" onclick="mostrarRespostas()">Listar Filmes</button>
+        </div>
+    </form>
+    <div id="ul">
+        <ul id="lista"></ul>
+    </div>
+
+    <style>
+        body {
+            background-color: antiquewhite;
+            color: rgb(36, 34, 34);
+            height: 100vh;
+            align-content: center;
+            justify-items: center;
+        }
+
+        .linha {
+            display: flex;
+            gap: 5px;
+        }
+
+        form {
+            justify-items: center;
+            border: 2px black solid;
+            border-radius: 10px;
+            padding: 10px;
+            width: 500px;
+        }
+    </style>
+
+</body>
+</html>
