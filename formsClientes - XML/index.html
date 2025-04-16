@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Filmes Preferidos!!</title>
+    <script src="index.js" defer></script>
+    <script src="servidor.js" defer></script>
+</head>
+
+<body>
+    <h1>Cadastro de clientes</h1>
+    <form id="form">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="telefone">Telefone:</label><br>
+        <input type="tel" id="telefone" name="telefone"><br><br>
+
+        <label for="endereco">Endereço:</label><br>
+        <textarea id="endereco" name="endereco"></textarea><br><br>
+
+        <label for="livro">Livro Retirado:</label><br>
+        <input type="text" id="livro" name="livro"><br><br>
+        <div class="button">
+        <button type="submit" class="btn">Gerar XML</button>
+        </div>
+    </form>
+
+    <style>
+        body {
+            background-color: antiquewhite;
+            color: rgb(36, 34, 34);
+            height: 100vh;
+            align-content: center;
+            justify-items: center;
+        }
+
+        form {
+            justify-items: center;
+            border: 2px black solid;
+            border-radius: 10px;
+            padding: 30px;
+            background-color: aliceblue;
+        }
+
+        .btn {
+            padding: 10px;
+            background-color: antiquewhite;
+            border-width: 2px;
+            border-radius: 1rem;
+        }
+
+        .buttons {
+            align-items: center;
+        }
+    </style>
+
+</body>
+
+</html>
